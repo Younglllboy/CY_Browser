@@ -15,6 +15,8 @@ CYBROWSER 是基于 Chromium Embedded Framework（CEF）的 Windows x64 桌面�
 - 提供网页标题、站点图标和快捷入口栏。
 - 提供浏览历史、收藏标签、下载记录和设置管理界面；支持收藏分组与快捷入口管理。
 - 下载文件默认保存到 `%LOCALAPPDATA%\CYBROWSER\downloads`，可查看下载记录。
+- 在 Windows 中对 PDF 选择“打开方式”并指定 `CYBROWSER.exe` 后，浏览器会将文件路径转换为 `file:///` 地址并显示。若要双击 PDF 时直接打开，请将 CYBROWSER 设置为 `.pdf` 文件的默认应用。
+- 设置页提供“设置为默认浏览器”入口，点击后将 CYBROWSER 注册到当前用户的 Windows 默认应用列表，并打开系统设置。然后在 Windows 中选择 CYBROWSER 处理 HTTP、HTTPS 和 HTML 文件。便携版移动位置后需要重新点击此入口。
 
 以上描述对应当前源码中的功能。首个版本仍处于早期阶段，欢迎通过 Issues 反馈兼容性问题和功能建议。
 

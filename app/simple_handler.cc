@@ -39,6 +39,8 @@ std::string GetDataURI(const std::string& data, const std::string& mime_type) {
 
 }  // namespace
 
+void OpenDefaultBrowserSettings();
+
 SimpleHandler::SimpleHandler(bool is_alloy_style)
     : is_alloy_style_(is_alloy_style) {
   DCHECK(!g_instance);
@@ -358,7 +360,7 @@ void SimpleHandler::RenderManager(CefRefPtr<CefBrowser> browser) {
     html += "<div class='card'><h2>默认搜索引擎</h2><p>选择地址栏搜索使用的引擎。</p><div class='actions'>";
     const char* names[]={"Bing","Baidu","Google","DuckDuckGo","Firefox (Google)"};
     for (int i=0;i<5;++i) html += "<a class='btn " + std::string(static_cast<int>(SearchManager::Get().engine())==i?"primary":"") + "' href='" + Link("settings","engine/"+std::to_string(i)) + "'>" + names[i] + "</a>";
-    html += "</div></div><div class='card'><h2>浏览数据</h2><a class='btn' href='" + Link("history") + "'>按网站管理历史与 Cookie</a></div>";
+    html += "</div></div><div class='card'><h2>默认浏览器</h2><p>在 Windows 默认应用设置中选择 CYBROWSER。</p><a class='btn primary' href='" + Link("settings","default-browser") + "'>设置为默认浏览器</a></div><div class='card'><h2>浏览数据</h2><a class='btn' href='" + Link("history") + "'>按网站管理历史与 Cookie</a></div>";
   } else if (section == "tabs") {
     html += "<div class='card'><h2>新建收藏标签</h2><form action='" + Link("tabs","create") + "' method='get'><input name='name' maxlength='60' required placeholder='输入标签名称' style='padding:11px 13px;border:1px solid #dce4ee;border-radius:10px;font:inherit;width:min(320px,70%)'> <button class='btn primary' type='submit'>创建标签</button></form></div>";
     for (const auto& folder:folders_) {
@@ -387,6 +389,10 @@ bool SimpleHandler::OnBeforeBrowse(CefRefPtr<CefBrowser> browser, CefRefPtr<CefF
   const auto slash=path.find('/');
   const std::string section=path.substr(0,slash);
   const std::string action=slash==std::string::npos?"":path.substr(slash+1);
+  if (section=="settings" && action=="default-browser") {
+    OpenDefaultBrowserSettings();
+    return true;
+  }
   if(section=="cookies") {
     OpenManager(browser,"history");
     return true;

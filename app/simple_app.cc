@@ -10,7 +10,11 @@
 #include <vector>
 #include <sstream>
 #include <iomanip>
+#include <filesystem>
 #include <windows.h>
+#include <shlwapi.h>
+
+#pragma comment(lib, "Shlwapi.lib")
 
 #include "include/cef_browser.h"
 #include "include/cef_command_line.h"
@@ -82,6 +86,37 @@ std::string ResolveInput(const CefString& input) {
       lower.rfind(L"localhost:", 0) == 0 || lower.find(L'.') != std::wstring::npos);
   if (host) return "https://" + CefString(value).ToString();
   return SearchManager::Get().BuildSearchURL(value);
+}
+
+// Windows passes an opened document as a positional command-line argument.
+// Convert it to a file URL before handing it to CEF.
+std::string OpenArgumentURL(CefRefPtr<CefCommandLine> command_line) {
+  CefCommandLine::ArgumentList arguments;
+  command_line->GetArguments(arguments);
+  for (const auto& argument : arguments) {
+    const std::string value = argument.ToString();
+    if (value.rfind("http://", 0) == 0 || value.rfind("https://", 0) == 0 ||
+        value.rfind("file://", 0) == 0)
+      return value;
+    std::filesystem::path path(argument.ToWString());
+    std::wstring extension = path.extension().wstring();
+    std::transform(extension.begin(), extension.end(), extension.begin(), towlower);
+    std::error_code error;
+    if ((extension != L".pdf" && extension != L".htm" && extension != L".html") ||
+        !std::filesystem::is_regular_file(path, error))
+      continue;
+
+    const std::wstring absolute = std::filesystem::absolute(path, error).wstring();
+    if (error) continue;
+    std::wstring file_url(32768, L'\0');
+    DWORD length = static_cast<DWORD>(file_url.size());
+    if (SUCCEEDED(UrlCreateFromPathW(absolute.c_str(), file_url.data(),
+                                     &length, 0))) {
+      file_url.resize(length);
+      return CefString(file_url).ToString();
+    }
+  }
+  return {};
 }
 
 class ShortcutIconCallback : public CefDownloadImageCallback {
@@ -539,6 +574,9 @@ void SimpleApp::OnContextInitialized() {
   // Check if a "--url=" value was provided via the command-line. If so, use
   // that instead of the default URL.
   url = command_line->GetSwitchValue("url");
+  if (url.empty()) {
+    url = OpenArgumentURL(command_line);
+  }
   if (url.empty()) {
     url = SearchManager::Get().HomeURL();
   }
