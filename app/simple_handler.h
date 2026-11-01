@@ -44,6 +44,7 @@ class SimpleHandler : public CefClient,
                          CefRefPtr<CefDownloadItem> item,
                          CefRefPtr<CefDownloadItemCallback> callback) override;
   void OpenManager(CefRefPtr<CefBrowser> browser, const std::string& section);
+  bool OpenURL(const std::string& url);
   std::vector<std::pair<int,std::string>> BookmarkFolders() const;
   struct Shortcut { std::string url, title, icon; };
   std::vector<Shortcut> Shortcuts() const;

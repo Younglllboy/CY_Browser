@@ -90,7 +90,8 @@ std::string ResolveInput(const CefString& input) {
 
 // Windows passes an opened document as a positional command-line argument.
 // Convert it to a file URL before handing it to CEF.
-std::string OpenArgumentURL(CefRefPtr<CefCommandLine> command_line) {
+std::string OpenArgumentURL(CefRefPtr<CefCommandLine> command_line,
+                            const std::wstring& current_directory = {}) {
   CefCommandLine::ArgumentList arguments;
   command_line->GetArguments(arguments);
   for (const auto& argument : arguments) {
@@ -99,6 +100,8 @@ std::string OpenArgumentURL(CefRefPtr<CefCommandLine> command_line) {
         value.rfind("file://", 0) == 0)
       return value;
     std::filesystem::path path(argument.ToWString());
+    if (path.is_relative() && !current_directory.empty())
+      path = std::filesystem::path(current_directory) / path;
     std::wstring extension = path.extension().wstring();
     std::transform(extension.begin(), extension.end(), extension.begin(), towlower);
     std::error_code error;
@@ -549,6 +552,20 @@ void UpdateShortcutBar() {
   for(auto* window:g_windows) window->RefreshShortcuts();
 }
 SimpleApp::SimpleApp() = default;
+
+bool SimpleApp::OnAlreadyRunningAppRelaunch(
+    CefRefPtr<CefCommandLine> command_line,
+    const CefString& current_directory) {
+  CEF_REQUIRE_UI_THREAD();
+  auto* handler = SimpleHandler::GetInstance();
+  if (!handler) return false;
+  std::string url = command_line->GetSwitchValue("url");
+  if (url.empty())
+    url = OpenArgumentURL(command_line, current_directory.ToWString());
+  if (!url.empty() && !handler->OpenURL(url)) return false;
+  handler->ShowMainWindow();
+  return true;
+}
 
 void SimpleApp::OnContextInitialized() {
   CEF_REQUIRE_UI_THREAD();

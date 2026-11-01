@@ -59,11 +59,14 @@ int RunMain(HINSTANCE hInstance,
   // fails or if early exit is desired (for example, due to process singleton
   // relaunch behavior).
   if (!CefInitialize(main_args, settings, app.get(), sandbox_info)) {
+    const int code = CefGetExitCode();
+    if (code == CEF_RESULT_CODE_NORMAL_EXIT_PROCESS_NOTIFIED)
+      return 0;
     MessageBoxW(nullptr,
                 L"CEF initialization failed. Check the application folder "
                 L"and debug.log for details.",
                 L"CYBROWSER startup error", MB_OK | MB_ICONERROR);
-    return CefGetExitCode();
+    return code;
   }
 
   // Run the CEF message loop. This will block until CefQuitMessageLoop() is

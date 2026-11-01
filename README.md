@@ -1,10 +1,10 @@
 # CYBROWSER
 
-CYBROWSER 是基于 Chromium Embedded Framework（CEF）的 Windows x64 桌面浏览器。当前版本为 v2.0.0 免安装版。AI 助手和插件系统仍在规划中，当前版本尚未提供这两项功能。
+CYBROWSER 是基于 Chromium Embedded Framework（CEF）的 Windows x64 桌面浏览器。当前版本为 v1.0.1 免安装版。AI 助手和插件系统仍在规划中，当前版本尚未提供这两项功能。
 
 ## 下载和使用
 
-从 [Releases](https://github.com/Younglllboy/CY_Browser/releases) 下载 `CYBROWSER-v2.0.0-win-x64.zip`，完整解压后运行文件夹中的 `CYBROWSER.exe`。请保留解压后的 DLL、资源文件及 `locales` 文件夹；单独复制 EXE 无法正常运行。当前仅提供 Windows x64 版本，没有安装程序。升级时可用新版本文件夹运行，浏览器数据仍保存在同一 Windows 用户目录。
+从 [Releases](https://github.com/Younglllboy/CY_Browser/releases) 下载 `CYBROWSER-v1.0.1-win-x64.zip`，完整解压后运行文件夹中的 `CYBROWSER.exe`。请保留解压后的 DLL、资源文件及 `locales` 文件夹；单独复制 EXE 无法正常运行。当前仅提供 Windows x64 版本，没有安装程序。升级时可用新版本文件夹运行，浏览器数据仍保存在同一 Windows 用户目录。
 
 浏览器数据保存在当前 Windows 用户的 `%LOCALAPPDATA%\CYBROWSER`，不位于程序文件夹中。删除程序文件夹不会自动清除这些数据。
 
@@ -16,18 +16,19 @@ CYBROWSER 是基于 Chromium Embedded Framework（CEF）的 Windows x64 桌面�
 - 提供浏览历史、收藏标签、下载记录和设置管理界面；支持收藏分组与快捷入口管理。
 - 下载文件默认保存到 `%LOCALAPPDATA%\CYBROWSER\downloads`，可查看下载记录。
 - 在 Windows 中对 PDF 选择“打开方式”并指定 `CYBROWSER.exe` 后，浏览器会将文件路径转换为 `file:///` 地址并显示。若要双击 PDF 时直接打开，请将 CYBROWSER 设置为 `.pdf` 文件的默认应用。
-- 设置页提供“设置为默认浏览器”入口，点击后将 CYBROWSER 注册到当前用户的 Windows 默认应用列表，并打开系统设置。然后在 Windows 中选择 CYBROWSER 处理 HTTP、HTTPS 和 HTML 文件。便携版移动位置后需要重新点击此入口。
+- 设置页提供“设置为默认浏览器”入口，点击后将 CYBROWSER 注册到当前用户的 Windows 默认应用列表，并打开系统设置。然后在 Windows 中选择 CYBROWSER 处理 HTTP、HTTPS、HTML 和 PDF 文件。便携版移动位置后需要重新点击此入口。
 
-### v2.0.0 更新
+### v1.0.1 更新
 
 - 支持 Windows“打开方式”传入本地 PDF 路径，自动转换为 `file:///` 地址；也支持本地 HTML 文件路径。
-- 设置页新增默认浏览器入口，可将 CYBROWSER 注册到 Windows 默认应用列表，并打开系统设置以选择 HTTP、HTTPS 与 HTML 文件的默认应用。
+- 修复 CYBROWSER 已运行时双击 PDF 只打开搜索主页的问题：新启动参数会转发到现有窗口并加载文件。
+- 设置页新增默认浏览器入口，可将 CYBROWSER 注册到 Windows 默认应用列表，并打开系统设置以选择 HTTP、HTTPS、HTML 与 PDF 文件的默认应用。选择 `.pdf` 默认应用后即可双击打开 PDF。
 
 以上描述对应当前源码中的功能。当前版本仍处于早期阶段，欢迎通过 Issues 反馈兼容性问题和功能建议。
 
 ## 后续计划
 
-以下是改进目标，尚未包含在 v2.0.0 中，具体实现与时间将根据测试和反馈调整：
+以下是改进目标，尚未包含在 v1.0.1 中，具体实现与时间将根据测试和反馈调整：
 
 1. **AI 基础能力**：设计可选的页面摘要、问答和搜索辅助；明确用户触发、数据发送范围与隐私提示。
 2. **AI 服务接入**：支持可配置的模型服务，先完成凭据保存、失败处理和使用成本提示，再逐步扩展能力。

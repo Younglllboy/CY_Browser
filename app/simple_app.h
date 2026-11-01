@@ -31,6 +31,9 @@ class SimpleApp : public CefApp, public CefBrowserProcessHandler {
 
   // CefBrowserProcessHandler methods:
   void OnContextInitialized() override;
+  bool OnAlreadyRunningAppRelaunch(
+      CefRefPtr<CefCommandLine> command_line,
+      const CefString& current_directory) override;
   CefRefPtr<CefClient> GetDefaultClient() override;
 
  private:

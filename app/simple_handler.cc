@@ -603,6 +603,13 @@ void SimpleHandler::ShowMainWindow() {
   }
 }
 
+bool SimpleHandler::OpenURL(const std::string& url) {
+  CEF_REQUIRE_UI_THREAD();
+  if (browser_list_.empty()) return false;
+  browser_list_.front()->GetMainFrame()->LoadURL(url);
+  return true;
+}
+
 void SimpleHandler::CloseAllBrowsers(bool force_close) {
   if (!CefCurrentlyOn(TID_UI)) {
     // Execute on the UI thread.
