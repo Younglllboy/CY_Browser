@@ -1,0 +1,18 @@
+# Local IDE and CMake build outputs
+/.vs/
+/build/
+/out/
+/dist/
+/cmake-build-*/
+
+# Runtime logs and local configuration
+*.log
+*.user
+*.suo
+
+# Windows and editor temporary files
+Thumbs.db
+Desktop.ini
+*.tmp
+*.bak
+*~
