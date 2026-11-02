@@ -1,10 +1,12 @@
 # CYBROWSER
 
-CYBROWSER 是基于 Chromium Embedded Framework（CEF）的 Windows x64 桌面浏览器。当前源码版本为 v1.0.2，已发布的免安装包为 v1.0.1。AI 助手和插件系统仍在规划中，当前版本尚未提供这两项功能。
+CYBROWSER 是基于 Chromium Embedded Framework（CEF）的 Windows x64 桌面浏览器。当前版本为 v1.0.2 免安装版。AI 助手和插件系统仍在规划中，当前版本尚未提供这两项功能。
 
 ## 下载和使用
 
-从 [Releases](https://github.com/Younglllboy/CY_Browser/releases) 下载 `CYBROWSER-v1.0.1-win-x64.zip`，完整解压后运行文件夹中的 `CYBROWSER.exe`。请保留解压后的 DLL、资源文件及 `locales` 文件夹；单独复制 EXE 无法正常运行。当前仅提供 Windows x64 版本，没有安装程序。升级时可用新版本文件夹运行，浏览器数据仍保存在同一 Windows 用户目录。
+下载 [CYBROWSER-v1.0.2-win-x64.zip](https://github.com/Younglllboy/CY_Browser/releases/download/v1.0.2/CYBROWSER-v1.0.2-win-x64.zip)，完整解压后运行 `CYBROWSER-v1.0.2-win-x64` 文件夹中的 `CYBROWSER.exe`。请保留解压后的 DLL、资源文件及 `locales` 文件夹；单独复制 EXE 无法正常运行。当前仅提供 Windows x64 版本，没有安装程序。升级时可用新版本文件夹运行，浏览器数据仍保存在同一 Windows 用户目录。
+
+v1.0.2 ZIP 的 SHA-256：`15E2D45DA458DCDC211B38A00DBAC2B9A8BAF6995C4C39DFB9CE94A6A0D86AD0`。
 
 浏览器数据保存在当前 Windows 用户的 `%LOCALAPPDATA%\CYBROWSER`，不位于程序文件夹中。删除程序文件夹不会自动清除这些数据。
 
