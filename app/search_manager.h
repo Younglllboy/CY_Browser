@@ -5,7 +5,7 @@
 // Search provider selection is shared by every browser window.
 class SearchManager {
  public:
-  enum class Engine { Bing, Baidu, Google, DuckDuckGo, Firefox };
+  enum class Engine { Bing, Baidu, Google, DuckDuckGo, Firefox, ZhijiDiscovery };
 
   static SearchManager& Get();
   Engine engine() const { return engine_; }

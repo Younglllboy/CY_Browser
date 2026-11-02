@@ -16,7 +16,7 @@ std::filesystem::path SettingsPath() {
 
 SearchManager::SearchManager() {
   int value=0;
-  if (std::ifstream(SettingsPath()) >> value && value>=0 && value<=4)
+  if (std::ifstream(SettingsPath()) >> value && value>=0 && value<=5)
     engine_=static_cast<Engine>(value);
 }
 
@@ -36,6 +36,7 @@ const char* SearchManager::HomeURL() const {
     case Engine::Google: return "https://www.google.com/";
     case Engine::DuckDuckGo: return "https://duckduckgo.com/";
     case Engine::Firefox: return "https://www.google.com/";
+    case Engine::ZhijiDiscovery: return "https://laptop-s5mos3ql.tail00db87.ts.net/";
     default: return "https://www.bing.com/";
   }
 }
@@ -46,6 +47,7 @@ const char* SearchManager::EngineName() const {
     case Engine::Google: return "Google";
     case Engine::DuckDuckGo: return "DuckDuckGo";
     case Engine::Firefox: return "Firefox (Google)";
+    case Engine::ZhijiDiscovery: return "枝己·发现";
     default: return "Bing";
   }
 }
@@ -57,6 +59,7 @@ std::string SearchManager::BuildSearchURL(const std::wstring& query) const {
     case Engine::Google: return "https://www.google.com/search?q=" + encoded;
     case Engine::DuckDuckGo: return "https://duckduckgo.com/?q=" + encoded;
     case Engine::Firefox: return "https://www.google.com/search?client=firefox-b-d&q=" + encoded;
+    case Engine::ZhijiDiscovery: return "https://laptop-s5mos3ql.tail00db87.ts.net/?q=" + encoded;
     default: return "https://www.bing.com/search?q=" + encoded;
   }
 }

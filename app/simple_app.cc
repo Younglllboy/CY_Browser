@@ -274,8 +274,8 @@ class ToolbarDelegate : public CefTextfieldDelegate,
       button->ShowMenu(menu, point, CEF_MENU_ANCHOR_TOPLEFT);
       return;
     }
-    const char* names[] = {"Bing", "Baidu", "Google", "DuckDuckGo", "Firefox (Google)"};
-    for (int i = 0; i < 5; ++i) {
+    const char* names[] = {"Bing", "Baidu", "Google", "DuckDuckGo", "Firefox (Google)", "枝己·发现"};
+    for (int i = 0; i < 6; ++i) {
       menu->AddRadioItem(100 + i, names[i], 1);
       menu->SetChecked(100 + i,
           static_cast<int>(SearchManager::Get().engine()) == i);
@@ -306,7 +306,7 @@ class ToolbarDelegate : public CefTextfieldDelegate,
         SimpleHandler::GetInstance()->OpenManager(browser, sections[command_id-200]);
       return;
     }
-    if (command_id < 100 || command_id > 104) return;
+    if (command_id < 100 || command_id > 105) return;
     SearchManager::Get().SetEngine(
         static_cast<SearchManager::Engine>(command_id - 100));
     if (engine_button_)

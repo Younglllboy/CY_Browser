@@ -1,6 +1,6 @@
 # CYBROWSER
 
-CYBROWSER 是基于 Chromium Embedded Framework（CEF）的 Windows x64 桌面浏览器。当前版本为 v1.0.1 免安装版。AI 助手和插件系统仍在规划中，当前版本尚未提供这两项功能。
+CYBROWSER 是基于 Chromium Embedded Framework（CEF）的 Windows x64 桌面浏览器。当前源码版本为 v1.0.2，已发布的免安装包为 v1.0.1。AI 助手和插件系统仍在规划中，当前版本尚未提供这两项功能。
 
 ## 下载和使用
 
@@ -11,12 +11,16 @@ CYBROWSER 是基于 Chromium Embedded Framework（CEF）的 Windows x64 桌面�
 ## 当前功能
 
 - 地址栏可输入网址或搜索词；支持后退、前进、刷新和主页操作。
-- 可切换 Bing、百度、Google、DuckDuckGo 及 Firefox（Google）搜索预设，并保存选择。
+- 可切换 Bing、百度、Google、DuckDuckGo、Firefox（Google）及枝己·发现搜索预设，并保存选择。
 - 提供网页标题、站点图标和快捷入口栏。
 - 提供浏览历史、收藏标签、下载记录和设置管理界面；支持收藏分组与快捷入口管理。
 - 下载文件默认保存到 `%LOCALAPPDATA%\CYBROWSER\downloads`，可查看下载记录。
 - 在 Windows 中对 PDF 选择“打开方式”并指定 `CYBROWSER.exe` 后，浏览器会将文件路径转换为 `file:///` 地址并显示。若要双击 PDF 时直接打开，请将 CYBROWSER 设置为 `.pdf` 文件的默认应用。
 - 设置页提供“设置为默认浏览器”入口，点击后将 CYBROWSER 注册到当前用户的 Windows 默认应用列表，并打开系统设置。然后在 Windows 中选择 CYBROWSER 处理 HTTP、HTTPS、HTML 和 PDF 文件。便携版移动位置后需要重新点击此入口。
+
+### v1.0.2 更新
+
+- 新增[枝己·发现](https://laptop-s5mos3ql.tail00db87.ts.net/)搜索引擎，可在工具栏引擎菜单或设置页选择为默认搜索引擎；地址栏搜索会通过 `q` 参数传递关键词，选择会保存。访问该服务需要能够连接对应网址。
 
 ### v1.0.1 更新
 
@@ -28,7 +32,7 @@ CYBROWSER 是基于 Chromium Embedded Framework（CEF）的 Windows x64 桌面�
 
 ## 后续计划
 
-以下是改进目标，尚未包含在 v1.0.1 中，具体实现与时间将根据测试和反馈调整：
+以下是改进目标，尚未包含在 v1.0.2 中，具体实现与时间将根据测试和反馈调整：
 
 1. **AI 基础能力**：设计可选的页面摘要、问答和搜索辅助；明确用户触发、数据发送范围与隐私提示。
 2. **AI 服务接入**：支持可配置的模型服务，先完成凭据保存、失败处理和使用成本提示，再逐步扩展能力。

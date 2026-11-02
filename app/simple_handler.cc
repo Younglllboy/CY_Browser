@@ -358,8 +358,8 @@ void SimpleHandler::RenderManager(CefRefPtr<CefBrowser> browser) {
     html += "</div><a class='btn danger' href='" + Link("downloads","clear") + "'>清除任务记录</a>";
   } else if (section == "settings") {
     html += "<div class='card'><h2>默认搜索引擎</h2><p>选择地址栏搜索使用的引擎。</p><div class='actions'>";
-    const char* names[]={"Bing","Baidu","Google","DuckDuckGo","Firefox (Google)"};
-    for (int i=0;i<5;++i) html += "<a class='btn " + std::string(static_cast<int>(SearchManager::Get().engine())==i?"primary":"") + "' href='" + Link("settings","engine/"+std::to_string(i)) + "'>" + names[i] + "</a>";
+    const char* names[]={"Bing","Baidu","Google","DuckDuckGo","Firefox (Google)","枝己·发现"};
+    for (int i=0;i<6;++i) html += "<a class='btn " + std::string(static_cast<int>(SearchManager::Get().engine())==i?"primary":"") + "' href='" + Link("settings","engine/"+std::to_string(i)) + "'>" + names[i] + "</a>";
     html += "</div></div><div class='card'><h2>默认浏览器</h2><p>在 Windows 默认应用设置中选择 CYBROWSER。</p><a class='btn primary' href='" + Link("settings","default-browser") + "'>设置为默认浏览器</a></div><div class='card'><h2>浏览数据</h2><a class='btn' href='" + Link("history") + "'>按网站管理历史与 Cookie</a></div>";
   } else if (section == "tabs") {
     html += "<div class='card'><h2>新建收藏标签</h2><form action='" + Link("tabs","create") + "' method='get'><input name='name' maxlength='60' required placeholder='输入标签名称' style='padding:11px 13px;border:1px solid #dce4ee;border-radius:10px;font:inherit;width:min(320px,70%)'> <button class='btn primary' type='submit'>创建标签</button></form></div>";
@@ -462,7 +462,7 @@ bool SimpleHandler::OnBeforeBrowse(CefRefPtr<CefBrowser> browser, CefRefPtr<CefF
   }
   if (section=="settings" && action.rfind("engine/",0)==0) {
     int i=action.back()-'0';
-    if (i>=0 && i<5) {
+    if (i>=0 && i<6) {
       SearchManager::Get().SetEngine(static_cast<SearchManager::Engine>(i));
       UpdateSearchEngineButton(browser);
     }
